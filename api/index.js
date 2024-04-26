@@ -38,17 +38,6 @@ function getUserDataFromReq(req){
     });
 }
 
-const token = cookies.token;
-if (token) {
-  try {
-    const { email, id, name } = await getUserDataFromReq(req);
-    res.json({ name, email, id });
-  } catch (error) {
-    res.status(422).json(error);
-  }
-}
-
-
 
 app.get('/test',(req,res)=>{
     mongoose.connect(process.env.MONGO_URL);
