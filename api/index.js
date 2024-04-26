@@ -23,7 +23,7 @@ app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
     credentials:true,
     methods:['GET','POST','PUT','DELETE'],
-    origin:'https://airbnb-clone-new.onrender.com',
+    origin:'https://amazing-scone-97122a.netlify.app',
 }));
 
 mongoose.connect(process.env.MONGO_URL); 
