@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
     credentials:true,
-    origin:'https://exquisite-biscochitos-f97b28.netlify.app', // Update this to match the client application's URL
+    origin:'https://amazing-scone-97122a.netlify.app',
 }));
 
 mongoose.connect(process.env.MONGO_URL); 
