@@ -18,15 +18,7 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "nrsbgirfhpir4ir940rwkfiennbdfibmfihlmsejbabdnijdr";
 
 
-const token = cookies.token;
-if (token) {
-  try {
-    const { email, id, name } = await getUserDataFromReq(req);
-    res.json({ name, email, id });
-  } catch (error) {
-    res.status(422).json(error);
-  }
-}
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -48,6 +40,16 @@ function getUserDataFromReq(req){
             resolve(userData);
         })
     });
+}
+
+const token = cookies.token;
+if (token) {
+  try {
+    const { email, id, name } = await getUserDataFromReq(req);
+    res.json({ name, email, id });
+  } catch (error) {
+    res.status(422).json(error);
+  }
 }
 
 
