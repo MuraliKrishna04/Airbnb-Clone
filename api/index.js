@@ -29,6 +29,18 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_URL); 
 
 
+
+const token = cookies.token;
+if (token) {
+  try {
+    const { email, id, name } = await getUserDataFromReq(req);
+    res.json({ name, email, id });
+  } catch (error) {
+    res.status(422).json(error);
+  }
+}
+
+
 function getUserDataFromReq(req){
     return new Promise((resolve, reject)=>{
         jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
