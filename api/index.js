@@ -26,7 +26,7 @@ app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
     credentials:true,
     methods:['GET','POST','PUT','DELETE'],
-    origin:'https://amazing-scone-97122a.netlify.app',
+    origin:'http://localhost:5173',
 }));
 
 mongoose.connect(process.env.MONGO_URL); 
@@ -42,15 +42,7 @@ function getUserDataFromReq(req){
     });
 }
 
-const token = cookies.token;
-if (token) {
-  try {
-    const { email, id, name } = await getUserDataFromReq(req);
-    res.json({ name, email, id });
-  } catch (error) {
-    res.status(422).json(error);
-  }
-}
+
 
 
 app.get('/test',(req,res)=>{
@@ -224,6 +216,6 @@ app.get('/bookings',async(req,res)=>{
 
 
 
-app.listen(3000, () => {
+app.listen(3000 , () => {
     console.log('Server is running on port 3000');
 });
