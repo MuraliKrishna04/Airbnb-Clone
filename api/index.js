@@ -3,7 +3,6 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 const User = require('./models/User.js');
 const Place = require('./models/Place.js');
-const Booking = require('./models/Booking.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const cookieParser = require ('cookie-parser');
@@ -32,7 +31,6 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_URL); 
 
 
-
 function getUserDataFromReq(req){
     return new Promise((resolve, reject)=>{
         jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
@@ -41,6 +39,7 @@ function getUserDataFromReq(req){
         })
     });
 }
+
 
 
 
@@ -191,30 +190,6 @@ app.put('/places', async (req,res) => {
 app.get('/places',async(req,res)=>{
     res.json(await Place.find());
 })  
-
-
-app.post('/bookings',async(req,res)=>{
-    const userData = await getUserDataFromReq(req);
-    const {place,checkIn,checkOut,
-        numberOfGuests,name,mobile,price} = req.body;
-    Booking.create({
-        place,checkIn,checkOut,
-        numberOfGuests,name,mobile,price,
-        user:userData.id,
-    }).then((doc)=>{
-        res.json(doc);
-    }).catch((err)=>{
-        throw err;
-    });
-});
-
-
-app.get('/bookings',async(req,res)=>{
-    const userData= await getUserDataFromReq(req);
-    res.json(await Booking.find({user:userData.id}).populate('place'));
-});
-
-
 
 app.listen(3000 , () => {
     console.log('Server is running on port 3000');
