@@ -28,17 +28,8 @@ app.use(cors({
     origin:'http://localhost:5173',
 }));
 
-mongoose.connect(process.env.MONGO_URL); 
-
-
-function getUserDataFromReq(req){
-    return new Promise((resolve, reject)=>{
-        jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
-            if (err) throw err;
-            resolve(userData);
-        })
-    });
-}
+console.log(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL);  
 
 
 
@@ -191,6 +182,10 @@ app.get('/places',async(req,res)=>{
     res.json(await Place.find());
 })  
 
+<<<<<<< HEAD
 app.listen(3000 , () => {
+=======
+app.listen(3000, () => {
+>>>>>>> parent of 0e38ae8 (Bookings-commit)
     console.log('Server is running on port 3000');
 });
